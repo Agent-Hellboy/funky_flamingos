@@ -1,10 +1,11 @@
+import json
 from urllib.parse import parse_qs
 from django.shortcuts import render, redirect
-from django.http import HttpResponse, Http404
-from users.forms import RegistrationForm
+from django.http import HttpResponse, HttpResponseRedirect
 from django.contrib import messages, auth
 from django.conf import settings
 import requests
+from users.forms import RegistrationForm
 
 
 def index(request):
@@ -21,7 +22,10 @@ def register(request):
     else:
         form = RegistrationForm()
 
-    return render(request, 'users/register.html', {'form': form, 'client_id': settings.CLIENT_ID })
+    return render(request, 'users/register.html', {
+        'form': form,
+        'client_id': settings.CLIENT_ID
+    })
 
 
 def login(request):
@@ -49,8 +53,18 @@ def github_login(request):
         'code': session_code
     })
     result = parse_qs(r.content)
-    # result now has the access token
-    return HttpResponse(str(result))
+    # Note: there's no error handling here
+    r = requests.get('https://api.github.com/user', headers={
+        'Accept': 'application/vnd.github.v3+json',
+        'Authorization': 'token ' + result[b"access_token"][0].decode('utf-8')
+    })
+    user = {
+        "username": r.json()["login"],
+        "email": r.json()["email"],
+    }
+    with open("user.json", "w") as f:
+        json.dump(user, f)
+    return HttpResponseRedirect('/users/dashboard')
 
 
 def dashboard(request):
