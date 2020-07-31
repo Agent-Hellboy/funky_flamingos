@@ -9,7 +9,7 @@ from users.forms import RegistrationForm
 
 
 def index(request):
-    return HttpResponse("<h1>welcome</h1>")
+    return render(request, 'users/index.html')
 
 
 def register(request):
