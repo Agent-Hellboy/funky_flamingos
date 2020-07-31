@@ -1,3 +1,4 @@
 *__pycache__/
 /.venv
-funky_flamingos/.env
+/funky_flamingos/.env
+user.json
