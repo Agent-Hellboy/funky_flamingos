@@ -14,9 +14,7 @@ A repo with various authentication-related functionalities
 
 ### Pipenv usage instructions
 
-+ Install pipenv using `pip install pipenv` and run `pipenv shell` to activate the environment.
-<<<<<<< HEAD
-+ Run `pipenv install` to install all the dependencies and pipenv should automatically install them for you.
-=======
-+ Run `pipenv install` to install all the dependencies and pipenv should install them for you.
->>>>>>> 3c7210920dd8ae92c75a129f9c4a6498d6f96af1
+ Install pipenv using `pip install pipenv` and run `pipenv shell` to activate the environment.
+
+ Run `pipenv install` to install all the dependencies and pipenv should automatically install them for you.
+
